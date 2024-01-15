@@ -1,19 +1,22 @@
 from django.shortcuts import render
 
-franchises = [
-    {'city': 'Cincinnati',
-     'name': 'Pythons',
-     'motto': 'Winning is the only option.',
-     'established': 'Jan 2024'},
-     {'city': 'Buffalo',
-     'name': 'Wings',
-     'motto': 'Buffalo built.',
-     'established': 'Jan 2024'},
-     {'city': 'Seattle',
-      'name': 'Swish',
-      'motto': 'Bringing hoops back to where it belongs.',
-      'established': 'Jan 2024'},
-]
+# Import Franchise Model
+from .models import Franchise
+
+# franchises = [
+#     {'city': 'Cincinnati',
+#      'name': 'Pythons',
+#      'motto': 'Winning is the only option.',
+#      'established': 'Jan 2024'},
+#      {'city': 'Buffalo',
+#      'name': 'Wings',
+#      'motto': 'Buffalo built.',
+#      'established': 'Jan 2024'},
+#      {'city': 'Seattle',
+#       'name': 'Swish',
+#       'motto': 'Bringing hoops back to where it belongs.',
+#       'established': 'Jan 2024'},
+# ]
 
 # Create your views here.
 
@@ -27,6 +30,7 @@ def about(request):
 
 # FRANCHISES INDEX
 def franchises_index(request):
+    franchises = Franchise.objects.all()
     return render(request, 'franchises/index.html', {
         'franchises': franchises
     })

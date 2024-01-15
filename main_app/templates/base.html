@@ -7,32 +7,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Dunk Dynasty</title>
     {% tailwind_css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
   </head>
-  <body>
+  <body class="flex flex-col h-dvh">
     <header>
-      <nav>
-        <div>
-          <ul>
-            <li>
-              <a href="/">Dunk Dynasty</a>
-            </li>
-          </ul>
-          <ul>
-            <li><a href="/about">About</a></li>
-            <li><a href="/franchises">All Franchises</a></li>
-          </ul>
+      <nav class="bg-gray-300">
+        <div class="flex justify-between p-6">
+          <a href="/">Dunk Dynasty</a>
+          <div class="flex gap-10" id="nav">
+            <a href="/about">About</a>
+            <a href="/franchises">All Franchises</a>
+          </div>
+          <div id="auth">
+            <a href="#" class="m-10">Log In</a>
+            <a href="#">Sign Up</a>
+          </div>
         </div>
       </nav>
     </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    <main>{% block content %} {% endblock %}</main>
     <footer>
-      <div>
-        All Rights Reserved, &copy; 2024 Dunk Dynasty
-      </div>
+      <div>All Rights Reserved, &copy; 2024 Dunk Dynasty</div>
     </footer>
   </body>
 </html>
