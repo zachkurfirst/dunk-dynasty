@@ -1,5 +1,6 @@
 from django.shortcuts import render
-
+# Import for CBV
+from django.views.generic.edit import CreateView
 # Import Franchise Model
 from .models import Franchise
 
@@ -41,3 +42,8 @@ def franchises_detail(request, franchise_id):
     return render(request, 'franchises/detail.html', {
         'franchise': franchise
     })
+
+# FRANCHISES CREATE
+class FranchiseCreate(CreateView):
+    model = Franchise
+    fields = '__all__'

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Franchise(models.Model):
@@ -9,3 +10,8 @@ class Franchise(models.Model):
 
     def __str__(self):
         return f"{self.city} {self.name}"
+
+    def get_absolute_url(self):
+        return reverse('franchises_detail', kwargs={
+            'franchise_id': self.id
+        })

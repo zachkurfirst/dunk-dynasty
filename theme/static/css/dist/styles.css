@@ -794,6 +794,10 @@ select {
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
 .h-dvh {
   height: 100dvh;
 }

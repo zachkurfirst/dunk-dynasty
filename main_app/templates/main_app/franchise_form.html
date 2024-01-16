@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Create a Franchise</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<!-- Blank action -> form posts to same url used to display -->
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        <!-- form is instance of ModelForm -->
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Create" class="btn">
+</form>
+{% endblock %}
