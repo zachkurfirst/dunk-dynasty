@@ -16,9 +16,9 @@
         {{ form.as_table }}
     </table>
     {% if object%}
-    <input type="submit" value="Update" class="btn">
+    <button type="submit" class="btn">Update</button>
     {% else %}
-    <input type="submit" value="Create" class="btn">
+    <button type="submit" class="btn">Create</button>
     {% endif %}
 </form>
 {% endblock %}
