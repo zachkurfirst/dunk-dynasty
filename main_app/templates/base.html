@@ -17,10 +17,10 @@
     <header>
       <nav class="bg-gray-300">
         <div class="flex justify-between p-6">
-          <a href="/">Dunk Dynasty</a>
+          <a href="{% url 'home' %}">Dunk Dynasty</a>
           <div class="flex gap-10" id="nav">
-            <a href="/about">About</a>
-            <a href="/franchises">All Franchises</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'franchises_index' %}">All Franchises</a>
           </div>
           <div id="auth">
             <a href="#" class="m-10">Log In</a>

@@ -34,3 +34,10 @@ def franchises_index(request):
     return render(request, 'franchises/index.html', {
         'franchises': franchises
     })
+
+# FRANCHISES DETAIL
+def franchises_detail(request, franchise_id):
+    franchise = Franchise.objects.get(id=franchise_id)
+    return render(request, 'franchises/detail.html', {
+        'franchise': franchise
+    })

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ franchise.city }} {{ franchise.name }}</h1>
+<h2>Established: {{ franchise.established|date:'M Y' }}</h2>
+<p>{{ franchise.motto }}</p>
+
+{% endblock %}

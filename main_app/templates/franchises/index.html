@@ -9,9 +9,11 @@
 <div class="container">
   {% for franchise in franchises %}
   <div class="card">
-    <span>{{ franchise.city }} {{ franchise.name }}</span>
-    <p>Motto: {{ franchise.motto }}</p>
-    <p>Est: {{ franchise.established }}</p>
+    <a href="{% url 'franchises_detail' franchise.id %}">
+      <span>{{ franchise.city|capfirst }} {{ franchise.name }}</span>
+      <p>Motto: {{ franchise.motto }}</p>
+      <p>Est: {{ franchise.established|date:'M Y' }}</p>
+    </a>
   </div>
   {% endfor %}
 </div>
