@@ -5,5 +5,9 @@
 <h1>{{ franchise.city }} {{ franchise.name }}</h1>
 <h2>Established: {{ franchise.established|date:'M Y' }}</h2>
 <p>{{ franchise.motto }}</p>
+<div>
+    <a href="{% url 'franchises_update' franchise.id %}" class="btn">Edit Franchise</a>
+    <a href="{% url 'franchises_delete' franchise.id %}" class="btn">Delete Franchise</a>
+</div>
 
 {% endblock %}

@@ -1,23 +1,12 @@
 from django.shortcuts import render
 # Import for CBV
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+# Import for redirect
+from django.urls import reverse_lazy
 # Import Franchise Model
 from .models import Franchise
 
-# franchises = [
-#     {'city': 'Cincinnati',
-#      'name': 'Pythons',
-#      'motto': 'Winning is the only option.',
-#      'established': 'Jan 2024'},
-#      {'city': 'Buffalo',
-#      'name': 'Wings',
-#      'motto': 'Buffalo built.',
-#      'established': 'Jan 2024'},
-#      {'city': 'Seattle',
-#       'name': 'Swish',
-#       'motto': 'Bringing hoops back to where it belongs.',
-#       'established': 'Jan 2024'},
-# ]
+# franchises = [{'city': 'Cincinnati', 'name': 'Pythons', 'motto': 'Winning is the only option.', 'established': 'Jan 2024'}, {'city': 'Buffalo', 'name': 'Wings', 'motto': 'Buffalo built.', 'established': 'Jan 2024'}, {'city': 'Seattle', 'name': 'Swish', 'motto': 'Bringing hoops back to where it belongs.', 'established': 'Jan 2024'}]
 
 # Create your views here.
 
@@ -47,3 +36,15 @@ def franchises_detail(request, franchise_id):
 class FranchiseCreate(CreateView):
     model = Franchise
     fields = '__all__'
+    # no success url necessary -> references get_absolute_url from model
+
+# FRANCHISES UPDATE
+class FranchiseUpdate(UpdateView):
+    model = Franchise
+    fields = '__all__'
+    # no success url necessary -> references get_absolute_url from model
+
+# FRANCHISES DELETE
+class FranchiseDelete(DeleteView):
+    model = Franchise
+    success_url = reverse_lazy('franchises_index')
