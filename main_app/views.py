@@ -6,6 +6,10 @@ from django.urls import reverse_lazy
 # Import for signup
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+# Import for Authorization
+from django.contrib.auth.decorators import login_required
+# Import mixin for CBV Authorization
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Import Franchise Model
 from .models import Franchise
 
@@ -29,6 +33,7 @@ def franchises_index(request):
     })
 
 # MY FRANCHISES INDEX - LOGGED IN USERS FRANCHISES
+@login_required # decorator takes function as input and returns a new function
 def franchises_my_index(request):
     franchises = Franchise.objects.filter(user=request.user)
     return render(request, 'franchises/my_index.html', {
@@ -36,6 +41,7 @@ def franchises_my_index(request):
     })
 
 # FRANCHISES DETAIL
+# NOTE: Consider protecting detail view with decorator - for now keeping open
 def franchises_detail(request, franchise_id):
     franchise = Franchise.objects.get(id=franchise_id)
     return render(request, 'franchises/detail.html', {
@@ -43,7 +49,7 @@ def franchises_detail(request, franchise_id):
     })
 
 # FRANCHISES CREATE
-class FranchiseCreate(CreateView):
+class FranchiseCreate(LoginRequiredMixin, CreateView):
     model = Franchise
     fields = ['city', 'name', 'motto']
     # no success url necessary -> references get_absolute_url from model
@@ -56,13 +62,13 @@ class FranchiseCreate(CreateView):
         return super().form_valid(form)
 
 # FRANCHISES UPDATE
-class FranchiseUpdate(UpdateView):
+class FranchiseUpdate(LoginRequiredMixin, UpdateView):
     model = Franchise
-    fields = '__all__'
+    fields = ['city', 'name', 'motto']
     # no success url necessary -> references get_absolute_url from model
 
 # FRANCHISES DELETE
-class FranchiseDelete(DeleteView):
+class FranchiseDelete(LoginRequiredMixin, DeleteView):
     model = Franchise
     success_url = reverse_lazy('franchises_index')
 
