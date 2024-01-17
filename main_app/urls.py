@@ -10,4 +10,5 @@ urlpatterns = [
     # use pk for class-based views
     path('franchises/<int:pk>/update/', views.FranchiseUpdate.as_view(), name='franchises_update'),
     path('franchises/<int:pk>/delete/', views.FranchiseDelete.as_view(), name='franchises_delete'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]
