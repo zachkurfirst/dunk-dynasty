@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if object %}
+<h1>Edit Franchise</h1>
+<p>Edit the details of your franchise below, and click update to save your changes.</p>
+{% else %}
+<h1>Create a Franchise</h1>
+<p>Your journey to building the next great NBA dynasty begins now!</p>
+{% endif %}
+<!-- Blank action -> form posts to same url used to display -->
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        <!-- form is instance of ModelForm -->
+        {{ form.as_table }}
+    </table>
+    {% if object%}
+    <button type="submit" class="btn">Update</button>
+    {% else %}
+    <button type="submit" class="btn">Create</button>
+    {% endif %}
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>All Franchises</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+<div class="container">
+  {% for franchise in franchises %}
+  <div class="card">
+    <a href="{% url 'franchises_detail' franchise.id %}">
+      <span>{{ franchise.city|capfirst }} {{ franchise.name }}</span>
+      <p>Motto: {{ franchise.motto }}</p>
+      <p>Est: {{ franchise.established|date:'M Y' }}</p>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

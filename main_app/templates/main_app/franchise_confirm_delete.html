@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Delete Franchise</h1>
+<p>Are you sure you want to delete the <span class="text-orange-700">{{ object.city }} {{ object.name }}</span>?</p>
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn">Yes, Delete</button>
+    <a href="{% url 'franchises_detail' franchise.id %}">Cancel</a>
+</form>
+{% endblock %}
