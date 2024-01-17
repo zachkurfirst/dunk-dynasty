@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls')),
     path('__reload__/', include('django_browser_reload.urls')),
+    # built-in authentication
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
