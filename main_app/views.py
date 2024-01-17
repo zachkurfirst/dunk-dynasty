@@ -35,9 +35,9 @@ def franchises_index(request):
 # MY FRANCHISES INDEX - LOGGED IN USERS FRANCHISES
 @login_required # decorator takes function as input and returns a new function
 def franchises_my_index(request):
-    franchises = Franchise.objects.filter(user=request.user)
+    my_franchises = Franchise.objects.filter(user=request.user)
     return render(request, 'franchises/my_index.html', {
-        'franchises': franchises
+        'franchises': my_franchises
     })
 
 # FRANCHISES DETAIL
