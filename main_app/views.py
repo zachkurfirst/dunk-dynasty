@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Import for CBV
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Import for redirect
@@ -21,10 +21,17 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-# FRANCHISES INDEX
+# FRANCHISES INDEX - ALL FRANCHISES
 def franchises_index(request):
     franchises = Franchise.objects.all()
     return render(request, 'franchises/index.html', {
+        'franchises': franchises
+    })
+
+# MY FRANCHISES INDEX - LOGGED IN USERS FRANCHISES
+def franchises_my_index(request):
+    franchises = Franchise.objects.filter(user=request.user)
+    return render(request, 'franchises/my_index.html', {
         'franchises': franchises
     })
 
@@ -61,4 +68,21 @@ class FranchiseDelete(DeleteView):
 
 # SIGNUP
 def signup(request):
-    pass
+    error_message = ''
+    if request.method == 'POST':
+        # UserCreationForm is a modelform, pass in the request data
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            # save user to db
+            user = form.save()
+            login(request, user)
+            return redirect('franchises_index')
+        else:
+            error_message = 'Invalid sign up, please try again.'
+    # Invalid POST or GET request -> render signup.html with empty form
+    form = UserCreationForm()
+    # create a variable for the context dictionary
+    context = {
+        'form': form,
+        'error_message': error_message}
+    return render(request, 'registration/signup.html', context)

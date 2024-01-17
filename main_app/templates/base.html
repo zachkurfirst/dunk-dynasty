@@ -28,15 +28,15 @@
           <div class="flex gap-10" id="auth">
             {% if user.is_authenticated %}
             <!-- Is authenticated -->
-            <a href="#">My Franchises</a>
+            <a href="{% url 'franchises_my_index' %}">My Franchises</a>
             <form action="{% url 'logout' %}" method="POST">
               {% csrf_token %}
               <button type="submit" class="">Log Out</button>
             </form>
             {% else %}
             <!-- Is not authenticated -->
+            <a href="{% url 'signup' %}">Sign Up</a>
             <a href="{% url 'login' %}">Log In</a>
-            <!-- <a href="#">Sign Up</a> -->
             {% endif %}
           </div>
         </div>
