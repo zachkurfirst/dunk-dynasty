@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1>{{ franchise.city }} {{ franchise.name }}</h1>
-<h2>Established: {{ franchise.established|date:'M Y' }}</h2>
+<h2>Established: {{ franchise.established|date:'N Y' }}</h2>
 <p>{{ franchise.motto }}</p>
 <div>
     <a href="{% url 'franchises_update' franchise.id %}" class="btn">Edit Franchise</a>
