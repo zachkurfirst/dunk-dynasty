@@ -29,3 +29,8 @@ class Photo(models.Model):
         # more efficient to use franchise_id since it is part of Photo object
         # don't have to do separate db hit (as we would in self.franchise.name)
         return f"Photo for franchise_id: {self.franchise_id} at {self.url}"
+
+
+class Player(models.Model):
+    search = models.CharField(max_length=50)
+    franchise = models.ForeignKey(Franchise, on_delete=models.CASCADE)

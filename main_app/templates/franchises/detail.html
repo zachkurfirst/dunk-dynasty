@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="flex flex-wrap" id="header">
+<section class="flex flex-wrap gap-6 border-2 p-4 mb-8" id="header">
     <div class="w-3/4 sm:w-1/2 px-4" id="photo">
         {% for photo in franchise.photo_set.all %}
-        <img class="rounded-full w-48 h-48 p-1 align-middle ring-2 ring-orange-600 drop-shadow-lg" src="{{ photo.url }}" alt="Photo for {{ franchise.city }} {{ franchise.name }}">
+        <img class="rounded drop-shadow-lg mb-4" src="{{ photo.url }}" alt="Photo for {{ franchise.city }} {{ franchise.name }}">
         {% empty %}
-        <!-- <div class="center-align">No Photos Uploaded (insert placeholder)</div> -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3/4">
-            <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
-          </svg>          
+        <img class="rounded drop-shadow-lg mb-4" src="../../static/Assets/franchise-photo-placeholder.jpg" alt="Placeholder image">
         {% endfor %}
         <form action="{% url 'add_photo' franchise.id %}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
@@ -18,16 +15,19 @@
             <button type="submit">Upload Photo</button>
         </form>
     </div>
-    <div id="franchise-info">
+    <div class="sm:mt-6" id="franchise-info">
         <h1 class="text-4xl font-bold">{{ franchise.city }} {{ franchise.name }}</h1>
         <h2>Established: {{ franchise.established|date:'N Y' }}</h2>
         <br>
-        <p>{{ franchise.motto }}</p>
+        <p class="mb-6">{{ franchise.motto }}</p>
         <div>
             <a href="{% url 'franchises_update' franchise.id %}" class="btn">Edit Franchise</a>
             <a href="{% url 'franchises_delete' franchise.id %}" class="btn">Delete Franchise</a>
         </div>
     </div>
-</div>
+</section>
+<section class="text-3xl font-semibold" id="roster">
+    <a href="{% url 'players_search' franchise.id %}">Build Roster</a>
+</section>
 
 {% endblock %}

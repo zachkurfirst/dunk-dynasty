@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-4xl font-bold mb-2">Build Your Roster</h1>
+<p class="mb-8">Add players to the {{ franchise.city }} {{ franchise.name }} by searching below.</p>
+<!-- endpoint = 'https://www.balldontlie.io/api/v1/players?per_page=5' -->
+<form action="{% url 'get_players' franchise.id %}" method="POST">
+    {% csrf_token %}
+    {{ search_form.as_p }}
+  <button type="submit">Search</button>
+</form>
+{% endblock %}

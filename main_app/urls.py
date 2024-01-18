@@ -13,4 +13,8 @@ urlpatterns = [
     path('franchises/<int:pk>/delete/', views.FranchiseDelete.as_view(), name='franchises_delete'),
     path('accounts/signup/', views.signup, name='signup'),
     path('franchises/<int:franchise_id>/add_photo/', views.add_photo, name='add_photo'),
+    # Players API
+    path('franchises/<int:franchise_id>/search/', views.players_search, name='players_search'),
+    path('franchises/<int:franchise_id>/get_players/', views.get_players, name='get_players'),
+    path('franchises/<int:franchise_id>/add_player/', views.add_player, name='add_player'),
 ]

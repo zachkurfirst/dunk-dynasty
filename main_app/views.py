@@ -1,6 +1,7 @@
 import uuid
 import boto3
 import os
+import requests
 from django.shortcuts import render, redirect
 # Import for CBV
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -15,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Import models
 from .models import Franchise, Photo
+from .forms import SearchForm
 
 # franchises = [{'city': 'Cincinnati', 'name': 'Pythons', 'motto': 'Winning is the only option.', 'established': 'Jan 2024'}, {'city': 'Buffalo', 'name': 'Wings', 'motto': 'Buffalo built.', 'established': 'Jan 2024'}, {'city': 'Seattle', 'name': 'Swish', 'motto': 'Bringing hoops back to where it belongs.', 'established': 'Jan 2024'}]
 
@@ -40,7 +42,7 @@ def franchises_index(request):
 def franchises_my_index(request):
     my_franchises = Franchise.objects.filter(user=request.user)
     return render(request, 'franchises/my_index.html', {
-        'franchises': my_franchises
+        'my_franchises': my_franchises
     })
 
 # FRANCHISES DETAIL
@@ -119,3 +121,36 @@ def add_photo(request, franchise_id):
             print('An error occured uploading file to S3.')
             print(e)
     return redirect('franchises_detail', franchise_id=franchise_id)
+
+# RENDER PLAYERS SEARCH PAGE
+def players_search(request, franchise_id):
+    franchise = Franchise.objects.get(id=franchise_id)
+    # instantiate SearchForm to be rendered
+    search_form = SearchForm() # invoke ModelForm
+    return render(request, 'franchises/search.html', {
+        'franchise': franchise,
+        'search_form': search_form
+    })
+
+# GET PLAYERS (SEARCH RESULTS)
+def get_players(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['search']
+            endpoint = 'https://www.balldontlie.io/api/v1/players?per_page=5'
+            params = {'search': query}
+            response = requests.get(endpoint, params=params)
+            results = response.json()
+            return render(request, 'results.html', {
+                'results': results
+            })
+        # print(get_players('anthony davis'))
+        # print(r.url)
+        # print(r.json())
+        # print(r.status_code)
+        # print(r.status_code == requests.codes.ok)
+
+# ADD PLAYER TO FRANCHISE
+def add_player(request):
+    pass
