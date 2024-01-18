@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Log In</h1>
+<h1 class="text-4xl font-bold mb-2">Log In</h1>
 <!-- login path comes from documentation -->
 <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
@@ -8,6 +8,6 @@
     <!-- hidden input allows us to pass data to server -->
     <!-- redirect user to intended destination after logging in -->
     <input type="hidden" name="next" value="{{ next }}">
-    <button type="submit" class="btn">Log In</button>
+    <button type="submit" class="btn btn-green mt-6">Log In</button>
 </form>
 {% endblock %}
