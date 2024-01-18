@@ -19,3 +19,13 @@ class Franchise(models.Model):
         return reverse('franchises_detail', kwargs={
             'franchise_id': self.id
         })
+
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    franchise = models.ForeignKey(Franchise, on_delete=models.CASCADE)
+
+    def __str__(self):
+        # more efficient to use franchise_id since it is part of Photo object
+        # don't have to do separate db hit (as we would in self.franchise.name)
+        return f"Photo for franchise_id: {self.franchise_id} at {self.url}"

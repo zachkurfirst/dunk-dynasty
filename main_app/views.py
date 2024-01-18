@@ -1,3 +1,6 @@
+import uuid
+import boto3
+import os
 from django.shortcuts import render, redirect
 # Import for CBV
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -10,8 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 # Import mixin for CBV Authorization
 from django.contrib.auth.mixins import LoginRequiredMixin
-# Import Franchise Model
-from .models import Franchise
+# Import models
+from .models import Franchise, Photo
 
 # franchises = [{'city': 'Cincinnati', 'name': 'Pythons', 'motto': 'Winning is the only option.', 'established': 'Jan 2024'}, {'city': 'Buffalo', 'name': 'Wings', 'motto': 'Buffalo built.', 'established': 'Jan 2024'}, {'city': 'Seattle', 'name': 'Swish', 'motto': 'Bringing hoops back to where it belongs.', 'established': 'Jan 2024'}]
 
@@ -92,3 +95,27 @@ def signup(request):
         'form': form,
         'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+# ADD PHOTO
+def add_photo(request, franchise_id):
+    # photo-file maps to 'name' attribute on <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # Need unique key for s3 (filename)
+        # Keep the same file extension as uploaded file by slicing
+        uniqueId = uuid.uuid4().hex[:6]
+        extension = photo_file.name[photo_file.name.rfind('.'):]
+        key = uniqueId + extension
+        # try uploading file
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build full url
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # assign to franchise_id or franchise (if object exists)
+            Photo.objects.create(url=url, franchise_id=franchise_id)
+        except Exception as e:
+            print('An error occured uploading file to S3.')
+            print(e)
+    return redirect('franchises_detail', franchise_id=franchise_id)
