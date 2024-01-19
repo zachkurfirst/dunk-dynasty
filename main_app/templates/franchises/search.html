@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-4xl font-bold mb-2">Build Your Roster</h1>
+<p class="mb-8">Search from a database of players and add your favorites to the <span class="text-orange-500">{{ franchise.city }} {{ franchise.name }}</span>.</p>
+<!-- Search form -->
+<form action="{% url 'get_players' franchise_id=franchise_id %}" method="POST" class="w-full">
+    {% csrf_token %}
+    {{ form.first_name }}
+    <!-- <input type="search" name="search" id="" class="w-3/4 rounded"> -->
+  <button type="submit" class="btn btn-orange">Search</button>
+</form>
+<!-- Render search results -->
+{% if results.data|length %}
+<table class="w-full text-left rtl:text-right mt-8 border overflow-x-auto">
+  <thead class="uppercase bg-slate-200">
+    <tr>
+      <th class="py-3 pl-2 pr-14">Full Name</th>
+      <th class="py-3 pr-6">Position</th>
+      <th class="hidden sm:table-cell py-3 pr-6">Height</th>
+      <th class="hidden md:table-cell py-3 pr-6">Weight</th>
+      <th class="py-3 pr-4">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for player in results.data %}
+    <tr class="border-b">
+      <td class="py-3 pl-2 pr-14">{{ player.first_name }} {{ player.last_name }}</td>
+      <td class="py-3 pr-6">
+        {% if player.position %}{{ player.position }}{% else %}N/A{% endif %}</td>
+      <td class="hidden sm:table-cell py-3 pr-6">{% if player.height_feet%}{{ player.height_feet }}'{% else %}N/A{% endif %}{% if player.height_inches %}{{ player.height_inches }}"{% endif %}</td>
+      <td class="hidden md:table-cell py-3 pr-6">{% if player.weight_pounds %}{{ player.weight_pounds }}{% else %}N/A{% endif %}</td>
+      <td class="py-3 pr-4">
+        <form action="{% url 'add_player' franchise.id %}" method="POST">
+          {% csrf_token %}
+          <!-- {{ add_player_form }} -->
+          <input type="hidden" value="{{ player.id }}" name="player-id" class="btn btn-green">
+          <button type="submit" value="{{ player.id }}" class="btn btn-green">Add</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% elif request.method == 'POST' %}
+<p class="mt-4 text-red-500">No results, try again!</p>
+{% else %}
+<!-- <p>Search!</p> -->
+{% endif %}
+{% endblock %}
