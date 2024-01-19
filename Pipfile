@@ -11,6 +11,7 @@ boto3 = "*"
 django-on-heroku = "*"
 gunicorn = "*"
 django-tailwind = {extras = ["reload"], version = "*"}
+requests = "*"
 
 [dev-packages]
 
