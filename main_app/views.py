@@ -2,8 +2,7 @@ import uuid
 import boto3
 import os
 import requests
-import json
-from django.http import JsonResponse
+# from django.http import JsonResponse
 from django.shortcuts import render, redirect
 # Import for CBV
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
