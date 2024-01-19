@@ -4,7 +4,7 @@
 <h1 class="text-4xl font-bold mb-2">Build Your Roster</h1>
 <p class="mb-8">Search from a database of players and add your favorites to the <span class="text-orange-500">{{ franchise.city }} {{ franchise.name }}</span>.</p>
 <!-- Search form -->
-<form action="{% url 'get_players' franchise_id=franchise_id %}" method="POST">
+<form action="{% url 'get_players' franchise_id=franchise_id %}" method="POST" class="w-full">
     {% csrf_token %}
     {{ form.first_name }}
     <!-- <input type="search" name="search" id="" class="w-3/4 rounded"> -->
@@ -30,7 +30,14 @@
         {% if player.position %}{{ player.position }}{% else %}N/A{% endif %}</td>
       <td class="hidden sm:table-cell py-3 pr-6">{% if player.height_feet%}{{ player.height_feet }}'{% else %}N/A{% endif %}{% if player.height_inches %}{{ player.height_inches }}"{% endif %}</td>
       <td class="hidden md:table-cell py-3 pr-6">{% if player.weight_pounds %}{{ player.weight_pounds }}{% else %}N/A{% endif %}</td>
-      <td class="py-3 pr-4">Button</td>
+      <td class="py-3 pr-4">
+        <form action="{% url 'add_player' franchise.id %}" method="POST">
+          {% csrf_token %}
+          <!-- {{ add_player_form }} -->
+          <input type="hidden" value="{{ player.id }}" name="player-id" class="btn btn-green">
+          <button type="submit" value="{{ player.id }}" class="btn btn-green">Add</button>
+        </form>
+      </td>
     </tr>
     {% endfor %}
   </tbody>

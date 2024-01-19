@@ -3,7 +3,7 @@
 {% block content %}
 <h1 class="text-4xl font-bold mb-2">All Franchises</h1>
 <p class="mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-10">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
   {% for franchise in franchises %}
   <div class="flex flex-col">
     <a href="{% url 'franchises_detail' franchise.id %}">

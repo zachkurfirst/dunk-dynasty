@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="flex flex-wrap gap-6 mb-8" id="header">
-    <div class="w-3/4 sm:w-1/2" id="photo">
+<section class="flex flex-wrap gap-4 mb-8" id="header">
+    <div class="w-3/4 sm:w-2/5" id="photo">
         {% for photo in franchise.photo_set.all %}
         <img class="rounded mb-4" src="{{ photo.url }}" alt="Photo for {{ franchise.city }} {{ franchise.name }}">
         {% empty %}

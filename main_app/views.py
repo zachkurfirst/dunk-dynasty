@@ -2,6 +2,7 @@ import uuid
 import boto3
 import os
 import requests
+import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 # Import for CBV
@@ -16,8 +17,8 @@ from django.contrib.auth.decorators import login_required
 # Import mixin for CBV Authorization
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Import models
-from .models import Franchise, Photo
-from .forms import SearchForm
+from .models import Franchise, Photo, Player
+from .forms import SearchForm, AddPlayerForm
 
 # franchises = [{'city': 'Cincinnati', 'name': 'Pythons', 'motto': 'Winning is the only option.', 'established': 'Jan 2024'}, {'city': 'Buffalo', 'name': 'Wings', 'motto': 'Buffalo built.', 'established': 'Jan 2024'}, {'city': 'Seattle', 'name': 'Swish', 'motto': 'Bringing hoops back to where it belongs.', 'established': 'Jan 2024'}]
 
@@ -138,6 +139,8 @@ def players_search(request, franchise_id):
 def get_players(request, franchise_id):
     results = {}
     franchise = Franchise.objects.get(id=franchise_id)
+    # instantiate AddPlayerForm to be rendered
+    add_player_form = AddPlayerForm()
     # check if search form is submitted
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -147,11 +150,12 @@ def get_players(request, franchise_id):
             query = form.cleaned_data['first_name']
             print(f"query: {query}")
             endpoint = 'https://www.balldontlie.io/api/v1/players?per_page=20'
-            try:
-                response = requests.get(endpoint, params={'search': query})
-                results = response.json()
+            # try:
+            response = requests.get(endpoint, params={'search': query})
+            results = response.json()
+
                 # print(results['data'])
-                jsonResults = JsonResponse(results['data'], safe=False)
+                # jsonResults = JsonResponse(results['data'], safe=False)
                 # return jsonResults
                 # print(f"jsonResults: {jsonResults}")
                 # return JsonResponse(results['data'], safe=False)
@@ -161,20 +165,54 @@ def get_players(request, franchise_id):
                 #     'franchise': franchise,
                 #     'results': jsonResults
                 # })
-            except requests.RequestException as e:
-                print(f"An error occured while fetching data from API: {e}")
-                return JsonResponse({
-                    'error': 'An error occured while fetching from the API'
-                }, status=500)
-            
+
+            # except requests.RequestException as e:
+            #     print(f"An error occured while fetching data from API: {e}")
+            #     return JsonResponse({
+            #         'error': 'An error occured while fetching from the API'
+            #     }, status=500)
+    else:
+        form = SearchForm()    
         # return JsonResponse({'error': 'Invalid request'}, status=400)
     return render(request, 'franchises/search.html', {
         'form': form,
         'results': results,
         'franchise_id': franchise_id,
-        'franchise': franchise
+        'franchise': franchise,
+        'add_player_form': add_player_form
     })
 
 # ADD PLAYER TO FRANCHISE
-def add_player(request):
-    pass
+def add_player(request, franchise_id):
+    if request.method == 'POST':
+        player_id = request.POST.get('player-id')
+        # print(player_id)
+        endpoint = 'https://www.balldontlie.io/api/v1/players/'
+        response = requests.get(f"{endpoint}{player_id}")
+        # print(response.url)
+        result = response.json()
+        # print(result['id'])
+        new_player = Player(
+            id=result['id'],
+            first_name=result['first_name'],
+            last_name=result['last_name'],
+            position=result['position'],
+            height_feet=result['height_feet'],
+            height_inches=result['height_inches'],
+            weight_pounds=result['weight_pounds'],
+            franchise_id=franchise_id
+        )
+        new_player.save()
+
+    #     add_player_form = AddPlayerForm(request.POST)
+    #     if add_player_form.is_valid():
+    #         response = requests.get(f"{endpoint}")
+    #         results = response.json()
+
+
+    #         new_player = add_player_form.save(commit=False)
+    #         new_player.franchise_id = franchise_id
+    #         new_player.save()
+    else:
+        print('No post')
+    return redirect('get_players', franchise_id=franchise_id)
