@@ -15,6 +15,7 @@ class Franchise(models.Model):
     def __str__(self):
         return f"{self.city} {self.name}"
 
+    # redirect when creating and updating a franchise
     def get_absolute_url(self):
         return reverse('franchises_detail', kwargs={
             'franchise_id': self.id
@@ -30,7 +31,15 @@ class Photo(models.Model):
         # don't have to do separate db hit (as we would in self.franchise.name)
         return f"Photo for franchise_id: {self.franchise_id} at {self.url}"
 
-
+# 1:M -> Franchise:Player
 class Player(models.Model):
-    search = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    position = models.CharField(max_length=3)
+    height_feet = models.IntegerField()
+    height_inches = models.IntegerField()
+    weight_pounds = models.IntegerField()
     franchise = models.ForeignKey(Franchise, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} on franchise_id: {self.franchise_id}"

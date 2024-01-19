@@ -7,9 +7,10 @@ endpoint = 'https://www.balldontlie.io/api/v1/players?per_page=5'
 # print(r.status_code)
 
 # Player Search with params
-query = {'search': 'james'}
+query = {'search': 'durant'}
 r = requests.get(endpoint, params=query)
-print(r.url, r.json())
+print(r.url)
+print(r.json())
 print(r.status_code == requests.codes.ok)
 
 # Get Player Search with input

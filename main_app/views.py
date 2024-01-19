@@ -2,6 +2,7 @@ import uuid
 import boto3
 import os
 import requests
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 # Import for CBV
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -126,30 +127,53 @@ def add_photo(request, franchise_id):
 def players_search(request, franchise_id):
     franchise = Franchise.objects.get(id=franchise_id)
     # instantiate SearchForm to be rendered
-    search_form = SearchForm() # invoke ModelForm
+    form = SearchForm() # invoke ModelForm
     return render(request, 'franchises/search.html', {
         'franchise': franchise,
-        'search_form': search_form
+        'franchise_id': franchise_id,
+        'form': form
     })
 
 # GET PLAYERS (SEARCH RESULTS)
-def get_players(request):
+def get_players(request, franchise_id):
+    results = {}
+    franchise = Franchise.objects.get(id=franchise_id)
+    # check if search form is submitted
     if request.method == 'POST':
         form = SearchForm(request.POST)
+        # print(form)
         if form.is_valid():
-            query = form.cleaned_data['search']
-            endpoint = 'https://www.balldontlie.io/api/v1/players?per_page=5'
-            params = {'search': query}
-            response = requests.get(endpoint, params=params)
-            results = response.json()
-            return render(request, 'results.html', {
-                'results': results
-            })
-        # print(get_players('anthony davis'))
-        # print(r.url)
-        # print(r.json())
-        # print(r.status_code)
-        # print(r.status_code == requests.codes.ok)
+            # print(f"form.cleaned_data: {form.cleaned_data}")
+            query = form.cleaned_data['first_name']
+            print(f"query: {query}")
+            endpoint = 'https://www.balldontlie.io/api/v1/players?per_page=20'
+            try:
+                response = requests.get(endpoint, params={'search': query})
+                results = response.json()
+                # print(results['data'])
+                jsonResults = JsonResponse(results['data'], safe=False)
+                # return jsonResults
+                # print(f"jsonResults: {jsonResults}")
+                # return JsonResponse(results['data'], safe=False)
+                # return render(request, 'franchises/search.html',
+                #     )
+                # return redirect('players_search', {
+                #     'franchise': franchise,
+                #     'results': jsonResults
+                # })
+            except requests.RequestException as e:
+                print(f"An error occured while fetching data from API: {e}")
+                return JsonResponse({
+                    'error': 'An error occured while fetching from the API'
+                }, status=500)
+            
+        # return JsonResponse({'error': 'Invalid request'}, status=400)
+    return render(request, 'franchises/search.html', {
+        'form': form,
+        'results': results,
+        'franchise_id': franchise_id,
+        'franchise': franchise
+    })
 
 # ADD PLAYER TO FRANCHISE
 def add_player(request):

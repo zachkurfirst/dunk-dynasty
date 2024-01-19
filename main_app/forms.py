@@ -4,4 +4,4 @@ from .models import Player
 class SearchForm(ModelForm):
     class Meta:
         model = Player
-        fields = ['search']
+        fields = ['first_name']
