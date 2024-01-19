@@ -32,8 +32,8 @@
 <hr class="my-8">
 <section id="roster">
     <h2 class="text-3xl font-bold mb-2">Roster</h2>
-    <!-- Roster goes here -->
-    {% if franchise.player_set.all|length %}
+    {% if franchise.player_set.all|length%}
+    <!-- ROSTER HAS PLAYERS -->
     <table class="w-full text-left rtl:text-right my-8 border overflow-x-auto">
         <thead class="uppercase bg-slate-200">
           <tr>
@@ -64,10 +64,20 @@
           {% endfor %}
         </tbody>
       </table>
-      {% else %}
-    <p class="mb-8">You can't build a dynasty without players! Start building your roster.</p>
+        {% if franchise.user == user %}
+        <!-- LOGGED IN USER IS FRANCHISE USER -->
+        <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange">Add Players</a>
+        {% endif %}
+    {% else %}
+    <!-- ROSTER HAS NO PLAYERS -->
+        {% if franchise.user == user %}
+        <!-- LOGGED IN USER IS FRANCHISE USER -->
+        <p class="mb-8">You can't build a dynasty without players! Start building your roster.</p>
+        <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange">Build Roster</a>
+        {% else %}
+        <p>This roster has no players yet. Check back soon!</p>
+        {% endif %}
     {% endif %}
-    <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange">Build Roster</a>
 </section>
 
 {% endblock %}
