@@ -954,14 +954,6 @@ h2,
   margin-top: 2rem;
 }
 
-.ml-12 {
-  margin-left: 3rem;
-}
-
-.ml-6 {
-  margin-left: 1.5rem;
-}
-
 .block {
   display: block;
 }
@@ -1002,24 +994,12 @@ h2,
   width: 100%;
 }
 
-.w-1\/2 {
-  width: 50%;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
-}
-
 .max-w-screen-md {
   max-width: 768px;
 }
 
 .max-w-screen-sm {
   max-width: 640px;
-}
-
-.max-w-4 {
-  max-width: 1rem;
 }
 
 .grow {
@@ -1054,20 +1034,12 @@ h2,
   justify-content: space-between;
 }
 
-.justify-evenly {
-  justify-content: space-evenly;
-}
-
 .gap-10 {
   gap: 2.5rem;
 }
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-2 {
-  gap: 0.5rem;
 }
 
 .overflow-hidden {
@@ -1128,17 +1100,8 @@ h2,
   --tw-gradient-to: #fb923c var(--tw-gradient-to-position);
 }
 
-.p-2 {
-  padding: 0.5rem;
-}
-
 .p-6 {
   padding: 1.5rem;
-}
-
-.px-10 {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
 }
 
 .px-6 {
@@ -1356,10 +1319,6 @@ form > p > input {
     margin-bottom: 9rem;
   }
 
-  .sm\:mb-8 {
-    margin-bottom: 2rem;
-  }
-
   .sm\:mr-8 {
     margin-right: 2rem;
   }
@@ -1375,27 +1334,15 @@ form > p > input {
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .sm\:p-6 {
-    padding: 1.5rem;
-  }
 }
 
 @media (min-width: 768px) {
-  .md\:mb-8 {
-    margin-bottom: 2rem;
-  }
-
   .md\:mb-4 {
     margin-bottom: 1rem;
   }
 
-  .md\:ml-12 {
-    margin-left: 3rem;
-  }
-
-  .md\:ml-auto {
-    margin-left: auto;
+  .md\:mb-8 {
+    margin-bottom: 2rem;
   }
 
   .md\:inline {
@@ -1408,10 +1355,6 @@ form > p > input {
 
   .md\:w-2\/5 {
     width: 40%;
-  }
-
-  .md\:w-2\/3 {
-    width: 66.666667%;
   }
 
   .md\:w-3\/5 {
@@ -1430,16 +1373,12 @@ form > p > input {
     flex-direction: row;
   }
 
-  .md\:gap-6 {
-    gap: 1.5rem;
-  }
-
-  .md\:gap-2 {
-    gap: 0.5rem;
-  }
-
   .md\:gap-10 {
     gap: 2.5rem;
+  }
+
+  .md\:gap-6 {
+    gap: 1.5rem;
   }
 
   .md\:pl-6 {
