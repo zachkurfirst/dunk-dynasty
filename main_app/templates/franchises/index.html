@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="text-4xl font-bold mb-2">All Franchises</h1>
-<p class="mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+<div id="heading" class="max-w-screen-md mx-auto">
+  <h1 class="text-4xl mb-2">All Franchises</h1>
+  <p class="mb-8 font-semibold">Select a team to check out their roster of players.</p>
+</div>
+<div id="container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
   {% for franchise in franchises %}
-  <div class="flex flex-col">
+  <div id="card" class="bg-white border rounded-lg overflow-hidden shadow-lg">
     <a href="{% url 'franchises_detail' franchise.id %}">
       {% for photo in franchise.photo_set.all %}
-      <img class="" src="{{ photo.url }}" alt="Photo for {{ franchise.city}} {{franchise.name }}">
+      {% if forloop.last %}
+      <img class="aspect-3/2" src="{{ photo.url }}" alt="Photo for {{ franchise.city}} {{franchise.name }}">
+      {% endif %}
       {% empty %}
-      <img class="" src="../../static/Assets/franchise-photo-placeholder.jpg" alt="Placeholder image">
+      <img class="aspect-3/2" src="../../static/Assets/franchise-photo-placeholder.jpg" alt="Placeholder image of basketball hoop">
       {% endfor %}
-      <div class="border p-2" id="card-contents">
-        <span class="text-2xl font-semibold">{{ franchise.city|capfirst }} {{ franchise.name }}</span>
-        <p class="mb-4">Est: {{ franchise.established|date:'N Y' }}</p>
-        <p>Motto: {{ franchise.motto }}</p>
+      <div id="card-contents" class="px-6 pt-4 pb-8">
+        <h2 class="font-body text-xl font-bold text-black">{{ franchise.city|capfirst }} {{ franchise.name }}</h2>
+        <p class="text-slate-500 mb-4">Est. {{ franchise.established|date:'M d, Y' }}</p>
+        <p class="italic">{{ franchise.motto }}</p>
       </div>
     </a>
   </div>

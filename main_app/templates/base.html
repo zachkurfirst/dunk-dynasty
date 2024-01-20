@@ -7,16 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Dunk Dynasty</title>
     {% tailwind_css %}
-    <link
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <!-- <link
       rel="stylesheet"
       type="text/css"
       href="{% static 'css/style.css' %}"
-    />
+    /> -->
   </head>
-  <body class="flex flex-col h-dvh">
-    <header class="bg-gray-300 fixed top-0 w-full shadow-md">
-      <nav>
-        <div class="flex justify-between p-6">
+  <body class="flex flex-col h-dvh bg-gradient-to-r from-red-500 to-orange-400 font-body">
+    <header class="bg-white fixed top-0 w-full shadow-md font-semibold">
+      <nav class="flex justify-between p-2 sm:p-6">
           <a href="{% url 'home' %}">Dunk Dynasty</a>
           <div class="flex gap-10" id="nav">
             <a href="{% url 'about' %}">About</a>
@@ -39,10 +42,9 @@
             <a href="{% url 'login' %}">Log In</a>
             {% endif %}
           </div>
-        </div>
       </nav>
     </header>
-    <main class="mx-auto my-28 px-8 sm:px-2 md:max-w-screen-md grow">{% block content %} {% endblock %}</main>
+    <main class="mx-auto my-28 sm:my-36 px-8 xl:px-0 md:max-w-screen-lg grow">{% block content %} {% endblock %}</main>
     <footer class="text-right pt-0 pb-4 pr-4">
       <div>All Rights Reserved, &copy; 2024 Dunk Dynasty</div>
     </footer>
