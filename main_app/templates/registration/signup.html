@@ -2,7 +2,7 @@
 {% block content %}
 <h1 class="text-4xl font-bold mb-2">Sign Up</h1>
 <p class="text-red-500">{{ error_message }}</p>
-<form action="{% url 'signup' %}" method="POST">
+<form action="{% url 'signup' %}" method="POST" class="form">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-green mt-6">Sign Up</button>

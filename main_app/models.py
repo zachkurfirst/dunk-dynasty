@@ -21,10 +21,11 @@ class Franchise(models.Model):
             'franchise_id': self.id
         })
 
-
+# ICEBOX: 1:1 -> Franchise:Photo
 class Photo(models.Model):
     url = models.CharField(max_length=200)
     franchise = models.ForeignKey(Franchise, on_delete=models.CASCADE)
+    # franchise = models.OneToOneField(Franchise, on_delete=models.CASCADE, primary_key=True)
 
     def __str__(self):
         # more efficient to use franchise_id since it is part of Photo object

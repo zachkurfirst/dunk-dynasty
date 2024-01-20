@@ -42,8 +42,11 @@ def franchises_index(request):
 @login_required # decorator takes function as input and returns a new function
 def franchises_my_index(request):
     my_franchises = Franchise.objects.filter(user=request.user)
-    return render(request, 'franchises/my_index.html', {
-        'my_franchises': my_franchises
+    if len(my_franchises) == 0:
+        return redirect('franchises_create')
+    else:
+        return render(request, 'franchises/my_index.html', {
+            'my_franchises': my_franchises
     })
 
 # FRANCHISES DETAIL
@@ -102,6 +105,13 @@ def signup(request):
 # ADD PHOTO
 def add_photo(request, franchise_id):
     # photo-file maps to 'name' attribute on <input type="file">
+    # print(request.FILES)
+    # print(dir(request.FILES))
+    # print(Photo.objects.get(franchise_id=franchise_id))
+    # if Photo.objects.get(franchise_id=franchise_id):
+    #     photo = Photo.objects.get(franchise_id=franchise_id)
+    #     photo.url = 
+    # print(photo_file)
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')

@@ -2,7 +2,7 @@
 {% block content %}
 <h1 class="text-4xl font-bold mb-2">Log In</h1>
 <!-- login path comes from documentation -->
-<form action="{% url 'login' %}" method="POST">
+<form action="{% url 'login' %}" method="POST" class="form">
     {% csrf_token %}
     {{ form.as_p }}
     <!-- hidden input allows us to pass data to server -->
