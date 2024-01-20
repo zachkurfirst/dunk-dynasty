@@ -21,7 +21,7 @@ class Franchise(models.Model):
             'franchise_id': self.id
         })
 
-# 1:1 -> Franchise:Photo
+# ICEBOX: 1:1 -> Franchise:Photo
 class Photo(models.Model):
     url = models.CharField(max_length=200)
     franchise = models.ForeignKey(Franchise, on_delete=models.CASCADE)

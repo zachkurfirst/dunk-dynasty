@@ -42,8 +42,11 @@ def franchises_index(request):
 @login_required # decorator takes function as input and returns a new function
 def franchises_my_index(request):
     my_franchises = Franchise.objects.filter(user=request.user)
-    return render(request, 'franchises/my_index.html', {
-        'my_franchises': my_franchises
+    if len(my_franchises) == 0:
+        return redirect('franchises_create')
+    else:
+        return render(request, 'franchises/my_index.html', {
+            'my_franchises': my_franchises
     })
 
 # FRANCHISES DETAIL
