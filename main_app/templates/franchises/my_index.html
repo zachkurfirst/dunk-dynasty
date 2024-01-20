@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div id="heading" class="max-w-screen-md mx-auto">
-  <h1 class="text-4xl mb-2">My Franchises</h1>
-  <p class="mb-8 font-semibold">Select one of your created teams, add players to your roster, and build the next great NBA dynasty!</p>
+<div id="heading" class="flex flex-col md:flex-row justify-between items-start max-w-screen-md mx-auto mb-10 md:mb-4">
+  <div class="md:w-2/3">
+    <h1 class="text-4xl mb-2">My Franchises</h1>
+    <p class="mb-4 md:mb-8 font-semibold">Select one of your created teams, add players to your roster, and build the next great NBA dynasty!</p>
+  </div>
+  <a href="{% url 'franchises_create' %}" class="btn md:btn-lg btn-green-outline">Create a Franchise</a>
 </div>
-<div id="container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div id="container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
   {% for franchise in my_franchises %}
   <div id="card" class="bg-white border rounded-lg overflow-hidden shadow-lg">
     <a href="{% url 'franchises_detail' franchise.id %}">
