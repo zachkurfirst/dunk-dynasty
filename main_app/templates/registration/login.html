@@ -9,5 +9,6 @@
     <!-- redirect user to intended destination after logging in -->
     <input type="hidden" name="next" value="{{ next }}">
     <button type="submit" class="btn btn-green mt-6">Log In</button>
+    <p class="mt-4">Don't have an account? <a href="{% url 'signup' %}" class="underline">Sign up here!</a></p>
 </form>
 {% endblock %}

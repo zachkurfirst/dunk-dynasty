@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-screen-sm text-center">
-    <h1 class="text-4xl text-white font-bold mt-10 mb-4">Build the Next Great NBA Franchise with Dunk Dynasty</h1>
-    <h2 class="text-xl font-semibold mb-12">Simulate owning the next major NBA franchise and add players to your team!</h2>
-    <a href="{% url 'franchises_create' %}" class="btn sm:btn-lg btn-orange mr-2 sm:mr-8">Get Building</a>
-    <a href="{% url 'franchises_index' %}" class="btn sm:btn-lg btn-orange-outline">All Franchises</a>
+<div class="flex flex-col items-center md:flex-row gap-8 max-w-screen-sm lg:max-w-screen-md mt-4">
+    <img src="../../static/Assets/dunk-dynasty-logo-trimmed.png" alt="Dunk Dynasty logo" class="max-w-52 md:max-w-60 lg:max-w-52">
+    <div>
+        <h1 class="text-4xl text-white font-bold my-2">Build the Next Great NBA Franchise with Dunk Dynasty</h1>
+        <h2 class="text-xl font-semibold mb-12">Simulate owning the next major NBA franchise and add players to your team!</h2>
+        <a href="{% url 'franchises_create' %}" class="btn sm:btn-lg btn-orange mr-2 sm:mr-8">Get Building</a>
+        <a href="{% url 'franchises_index' %}" class="btn sm:btn-lg btn-orange-outline">All Franchises</a>
+    </div>
 </div>
 {% endblock %}
