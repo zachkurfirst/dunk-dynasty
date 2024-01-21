@@ -26,7 +26,7 @@
         {% if franchise.user == user %}
         <div id="edit-delete-buttons">
             <a href="{% url 'franchises_update' franchise.id %}" class="btn-lg btn-orange mr-2">Edit Franchise</a>
-            <a href="{% url 'franchises_delete' franchise.id %}" class="btn-lg btn-orange-outline">Delete Franchise</a>
+            <a href="{% url 'franchises_delete' franchise.id %}" class="btn-lg btn-red-outline">Delete Franchise</a>
         </div>
         {% endif %}
     </div>

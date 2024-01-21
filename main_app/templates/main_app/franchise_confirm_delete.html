@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Delete Franchise</h1>
-<p>Are you sure you want to delete the <span class="text-orange-700">{{ object.city }} {{ object.name }}</span>?</p>
+<h1 class="text-4xl">Delete Franchise</h1>
+<p class="mb-4">Are you sure you want to delete the <span class="text-orange-50">{{ object.city }} {{ object.name }}?</span></p>
 <form action="" method="POST">
     {% csrf_token %}
-    <button type="submit" class="btn">Yes, Delete</button>
-    <a href="{% url 'franchises_detail' franchise.id %}">Cancel</a>
+    <button type="submit" class="btn btn-red-outline px-10 mr-4">Delete</button>
+    <a href="{% url 'franchises_detail' franchise.id %}" class="text-white">Cancel</a>
 </form>
 {% endblock %}
