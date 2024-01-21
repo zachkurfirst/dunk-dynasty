@@ -6,7 +6,7 @@
     <h1 class="text-4xl mb-2">My Franchises</h1>
     <p class="mb-4 md:mb-8 font-semibold">Select one of your created teams, add players to your roster, and build the next great NBA dynasty!</p>
   </div>
-  <a href="{% url 'franchises_create' %}" class="btn md:btn-lg btn-green-outline">Create a Franchise</a>
+  <a href="{% url 'franchises_create' %}" class="btn md:btn-lg btn-green-outline">Create a New Franchise</a>
 </div>
 <div id="container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
   {% for franchise in my_franchises %}

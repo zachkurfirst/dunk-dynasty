@@ -31,6 +31,10 @@
     @apply bg-red-500 hover:bg-red-700 text-white;
   }
 
+  .btn-red-outline {
+    @apply bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border-2 border-red-600 hover:border-transparent;
+  }
+
   h1,
   h2,
   h3 {
