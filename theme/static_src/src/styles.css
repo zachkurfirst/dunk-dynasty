@@ -12,11 +12,11 @@
   }
 
   .btn-orange {
-    @apply bg-orange-700 hover:bg-orange-500 text-white border-2 border-white;
+    @apply bg-sky-700 hover:bg-sky-500 text-white border-2 border-white;
   }
 
   .btn-orange-outline {
-    @apply bg-white hover:bg-orange-700 text-orange-700 hover:text-white border-2 border-orange-700 hover:border-transparent;
+    @apply bg-white hover:bg-sky-700 text-sky-700 hover:text-white border-2 border-sky-700 hover:border-transparent;
   }
 
   .btn-green {
@@ -33,6 +33,10 @@
 
   .btn-red-outline {
     @apply bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border-2 border-red-600 hover:border-transparent;
+  }
+
+  p {
+    @apply text-sky-950 font-medium;
   }
 
   h1,
@@ -52,7 +56,7 @@
 }
 
 .form {
-  @apply max-w-xl sm:mx-auto mx-6 p-6 rounded mb-14 border border-orange-950 bg-orange-200;
+  @apply max-w-xl sm:mx-auto mx-6 p-6 rounded border border-orange-950 bg-orange-100;
 }
 
 form > #id_first_name {
@@ -61,5 +65,21 @@ form > #id_first_name {
 }
 
 form > p > input {
-  @apply w-full;
+  @apply w-full mb-4;
+}
+
+form > p {
+  @apply mt-4;
+}
+
+form > p > label {
+  @apply font-bold uppercase;
+}
+
+ul > li > a {
+  @apply underline hover:text-white;
+}
+
+#card > a {
+  @apply hover:opacity-85;
 }
