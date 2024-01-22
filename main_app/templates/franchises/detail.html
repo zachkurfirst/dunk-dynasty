@@ -33,7 +33,12 @@
 </section>
 <hr class="my-8">
 <div id="roster">
-    <h2 class="text-3xl mb-6">Roster</h2>
+  <div class="mb-4">
+      <h2 class="text-3xl">Roster</h2>
+      {% if franchise.user == user %}
+      <h3 class="text-xl">{{ franchise.player_set.all|length }} / 12 players</h3>
+      {% endif %}
+    </div>
     {% if franchise.player_set.all|length%}
     <!-- ROSTER HAS PLAYERS -->
     <table class="w-full text-left rtl:text-right mb-8 overflow-x-auto">
@@ -43,7 +48,9 @@
             <th class="py-3 pr-6">Position</th>
             <th class="hidden sm:table-cell py-3 pr-6">Height</th>
             <th class="hidden md:table-cell py-3 pr-6">Weight</th>
+            {% if franchise.user == user %}
             <th class="py-3 pr-4">Action</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody class="bg-slate-50">
@@ -54,14 +61,14 @@
               {% if player.position %}{{ player.position }}{% else %}N/A{% endif %}</td>
             <td class="hidden sm:table-cell py-3 pr-6">{% if player.height_feet%}{{ player.height_feet }}'{% else %}N/A{% endif %}{% if player.height_inches %}{{ player.height_inches }}"{% endif %}</td>
             <td class="hidden md:table-cell py-3 pr-6">{% if player.weight_pounds %}{{ player.weight_pounds }}{% else %}N/A{% endif %}</td>
+            {% if franchise.user == user %}
             <td class="py-3 pr-4">
               <form action="{% url 'add_player' franchise.id %}" method="POST">
                 {% csrf_token %}
-                <!-- {{ add_player_form }} -->
-                <input type="hidden" value="{{ player.id }}" name="player-id" class="btn btn-green">
-                <button type="submit" value="{{ player.id }}" class="btn btn-red">Cut</button>
+                <a href="{% url 'player_cut' franchise.id player.id %}" class="btn btn-red">Cut</a>
               </form>
             </td>
+            {% endif %}
           </tr>
           {% endfor %}
         </tbody>
@@ -74,7 +81,7 @@
     <!-- ROSTER HAS NO PLAYERS -->
         {% if franchise.user == user %}
         <!-- LOGGED IN USER IS FRANCHISE USER -->
-        <p class="mb-8">You can't build a dynasty without players! Start building your roster.</p>
+        <p class="mb-8 text-white">You can't build a dynasty without players! Start building your roster.</p>
         <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange">Build Roster</a>
         {% else %}
         <p>This roster has no players yet. Check back soon!</p>
