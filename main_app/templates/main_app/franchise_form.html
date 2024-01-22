@@ -10,12 +10,10 @@
     <p class="mb-4">Your journey to building the next great NBA dynasty begins now!</p>
     {% endif %}
 </div>
-<!-- Blank action -> form posts to same url used to display -->
 <form action="" method="POST" class="form">
     {% csrf_token %}
-    <!-- form is instance of ModelForm -->
     {{ form.as_p }}
-    {% if object%}
+    {% if object %}
     <button type="submit" class="btn btn-green mt-2 px-8">Update</button>
     {% else %}
     <button type="submit" class="btn btn-green mt-2 px-8">Create</button>

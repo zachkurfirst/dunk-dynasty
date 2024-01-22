@@ -9,6 +9,7 @@
     {{ form.first_name }}
   <button type="submit" class="btn btn-orange">Search</button>
 </form>
+{{ error_message }}
 <!-- Render search results -->
 {% if results.data|length %}
 <table class="w-full text-left rtl:text-right mt-8 border overflow-x-auto">

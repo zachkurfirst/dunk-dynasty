@@ -4,8 +4,6 @@
 <form action="{% url 'login' %}" method="POST" class="form">
     {% csrf_token %}
     {{ form.as_p }}
-    <!-- hidden input allows us to pass data to server -->
-    <!-- redirect user to intended destination after logging in -->
     <input type="hidden" name="next" value="{{ next }}">
     <button type="submit" class="btn btn-green px-12">Log In</button>
     <p class="mt-4">Don't have an account?</p>

@@ -50,9 +50,6 @@ module.exports = {
             aspectRatio: {
                 '3/2': '3 / 2',
             },
-            backgroundImage: {
-                'bg': "url('../../Assets/oleksii-s-O2kqxbix4Mw-unsplash.jpg')",
-            }
         },
     },
     plugins: [
