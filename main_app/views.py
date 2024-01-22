@@ -19,8 +19,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Franchise, Photo, Player
 from .forms import SearchForm, AddPlayerForm
 
-# franchises = [{'city': 'Cincinnati', 'name': 'Pythons', 'motto': 'Winning is the only option.', 'established': 'Jan 2024'}, {'city': 'Buffalo', 'name': 'Wings', 'motto': 'Buffalo built.', 'established': 'Jan 2024'}, {'city': 'Seattle', 'name': 'Swish', 'motto': 'Bringing hoops back to where it belongs.', 'established': 'Jan 2024'}]
-
 # Create your views here.
 
 # HOME VIEW
@@ -103,6 +101,7 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 # ADD PHOTO
+@login_required
 def add_photo(request, franchise_id):
     # photo-file maps to 'name' attribute on <input type="file">
     # print(request.FILES)
@@ -128,12 +127,14 @@ def add_photo(request, franchise_id):
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
             # assign to franchise_id or franchise (if object exists)
             Photo.objects.create(url=url, franchise_id=franchise_id)
+            return redirect('players_search', franchise_id=franchise_id)
         except Exception as e:
             print('An error occured uploading file to S3.')
             print(e)
     return redirect('franchises_detail', franchise_id=franchise_id)
 
 # RENDER PLAYERS SEARCH PAGE
+@login_required
 def players_search(request, franchise_id):
     franchise = Franchise.objects.get(id=franchise_id)
     # instantiate SearchForm to be rendered
@@ -145,6 +146,7 @@ def players_search(request, franchise_id):
     })
 
 # GET PLAYERS (SEARCH RESULTS)
+@login_required
 def get_players(request, franchise_id):
     results = {}
     franchise = Franchise.objects.get(id=franchise_id)
@@ -192,6 +194,7 @@ def get_players(request, franchise_id):
     })
 
 # ADD PLAYER TO FRANCHISE
+@login_required
 def add_player(request, franchise_id):
     if request.method == 'POST':
         player_id = request.POST.get('player-id')
@@ -211,7 +214,12 @@ def add_player(request, franchise_id):
             weight_pounds=result['weight_pounds'],
             franchise_id=franchise_id
         )
-        new_player.save()
+        if Player.objects.filter(id=player_id).exists():
+            print('Player is already on a franchise.')
+            return redirect('players_search', franchise_id=franchise_id)
+        else:
+            print('Player is available to be claimed + saved.')
+            new_player.save()
 
     #     add_player_form = AddPlayerForm(request.POST)
     #     if add_player_form.is_valid():
@@ -224,4 +232,12 @@ def add_player(request, franchise_id):
     #         new_player.save()
     else:
         print('No post')
-    return redirect('get_players', franchise_id=franchise_id)
+    return redirect('franchises_detail', franchise_id=franchise_id)
+
+# PLAYER CUT (DELETE)
+@login_required
+def player_cut(request, franchise_id, player_id):
+    player = Player.objects.get(id=player_id)
+    print(player)
+    player.delete()
+    return redirect('franchises_detail', franchise_id=franchise_id)
