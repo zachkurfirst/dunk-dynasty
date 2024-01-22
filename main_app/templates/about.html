@@ -1,46 +1,125 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 <div class="max-w-screen-md">
-  <h1 class="text-4xl font-bold mb-2">About Dunk Dynasty</h1>
+  <h1 class="text-4xl font-bold mt-8 mb-2">Welcome to Dunk Dynasty!</h1>
   <hr />
   <p class="mt-4 mb-8">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Id velit ut tortor
-    pretium viverra suspendisse potenti. Placerat duis ultricies lacus sed
-    turpis. Sit amet tellus cras adipiscing enim eu. Scelerisque eu ultrices
-    vitae auctor eu augue. Dictum fusce ut placerat orci nulla. Ultrices
-    tincidunt arcu non sodales neque. Urna nunc id cursus metus aliquam eleifend
-    mi in nulla. Quisque non tellus orci ac auctor augue mauris augue. Nullam ac
-    tortor vitae purus faucibus ornare suspendisse sed. Nunc sed id semper risus
-    in hendrerit. Ac feugiat sed lectus vestibulum mattis ullamcorper velit sed.
-    Dignissim enim sit amet venenatis urna cursus. Pellentesque habitant morbi
-    tristique senectus et netus et malesuada. Pellentesque id nibh tortor id
-    aliquet. Vulputate enim nulla aliquet porttitor. Suscipit adipiscing
-    bibendum est ultricies integer quis. Odio ut enim blandit volutpat maecenas
-    volutpat. Aenean pharetra magna ac placerat vestibulum lectus. Lectus proin
-    nibh nisl condimentum id. Risus sed vulputate odio ut. Aliquet bibendum enim
-    facilisis gravida neque convallis a cras. Vulputate eu scelerisque felis
-    imperdiet proin fermentum leo. Feugiat scelerisque varius morbi enim nunc.
-    Donec ac odio tempor orci. Vulputate enim nulla aliquet porttitor lacus
-    luctus. Nisl suscipit adipiscing bibendum est ultricies integer quis auctor
-    elit. Ac auctor augue mauris augue neque. Amet nulla facilisi morbi tempus
-    iaculis urna id volutpat. Duis convallis convallis tellus id interdum velit
-    laoreet. Massa eget egestas purus viverra accumsan in. Tristique senectus et
-    netus et malesuada. Amet porttitor eget dolor morbi. Magnis dis parturient
-    montes nascetur ridiculus. Orci sagittis eu volutpat odio. Faucibus ornare
-    suspendisse sed nisi. Netus et malesuada fames ac turpis egestas maecenas
-    pharetra convallis. Posuere sollicitudin aliquam ultrices sagittis orci.
-    Arcu dui vivamus arcu felis bibendum ut tristique et. Porttitor eget dolor
-    morbi non. At erat pellentesque adipiscing commodo elit at imperdiet dui.
-    Morbi leo urna molestie at elementum. Urna porttitor rhoncus dolor purus non
-    enim. Viverra tellus in hac habitasse platea dictumst. Mauris ultrices eros
-    in cursus turpis massa tincidunt dui. Molestie nunc non blandit massa enim
-    nec dui. Dictum at tempor commodo ullamcorper a lacus. Elit pellentesque
-    habitant morbi tristique senectus et. Odio euismod lacinia at quis risus.
-    Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus.
-    Iaculis eu non diam phasellus.
+    The game starts now! Dunk Dynasty is a full-stack Django application that
+    puts the power in your hands to forge your own fictional NBA franchise.
+    Unleash your creativity as you construct a formidable roster of players,
+    poised to ascend and establish the next legendary NBA dynasty!
   </p>
+  <h2 class="text-3xl mb-2">Technology + Documentation</h2>
+  <hr />
+  <ul class="list-disc ml-8 mt-4 mb-8 text-sky-950">
+    <li>
+      <strong>Web Framework:</strong>
+      <a
+        href="https://docs.djangoproject.com/en/5.0/"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Django</a
+      >
+    </li>
+    <li>
+      <strong>Programming and Markup Languages:</strong>
+      <a
+        href="https://docs.python.org/3/"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Python</a
+      >, HTML,
+      <a
+        href="https://docs.djangoproject.com/en/5.0/ref/templates/language/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >DTL</a
+      >
+    </li>
+    <li>
+      <strong>Database:</strong>
+      <a
+        href="https://www.postgresql.org/docs/"
+        target="_blank"
+        rel="noreferrer noopener"
+        >PostgreSQL</a
+      >
+    </li>
+    <li>
+      <strong>CSS Library:</strong>
+      <a
+        href="https://tailwindcss.com/docs/"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Tailwind</a
+      >
+      (<strong>installation package:</strong>
+      <a
+        href="https://django-tailwind.readthedocs.io/en/latest/installation.html"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Django-Tailwind</a
+      >)
+    </li>
+    <li>
+      <strong>Photo Storage</strong>
+      <a
+        href="https://docs.aws.amazon.com/s3/"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Amazon S3</a
+      >
+    </li>
+    <li>
+      <strong>Cloud Application Deployment:</strong>
+      <a
+        href="https://devcenter.heroku.com/categories/reference"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Heroku</a
+      >
+    </li>
+  </ul>
   <h2 class="text-3xl mb-2">Acknolwedgements</h2>
   <hr />
-  <p class="mt-4">Text goes here...</p>
+  <ul class="list-disc ml-8 mt-4 mb-8 text-sky-950">
+    <li>
+      <strong>API:</strong>
+      <a
+        href="https://www.balldontlie.io/home.html"
+        target="_blank"
+        rel="noreferrer noopener"
+        >balldontlie</a
+      >
+    </li>
+    <li>
+      <strong>Stock photos:</strong>
+      <a href="https://unsplash.com/" target="_blank" rel="noreferrer noopener"
+        >Unsplash</a
+      >
+    </li>
+    <li>
+      <strong>Photo Compression:</strong>
+      <a href="https://tinypng.com/" target="_blank" rel="noreferrer noopener"
+        >TinyPNG</a
+      >
+    </li>
+    <li>
+      <strong>Dunk Dynasty Logos:</strong>
+      <a
+        href="https://openai.com/dall-e-3"
+        target="_blank"
+        rel="noreferrer noopener"
+        >DALL·E 3</a
+      >
+    </li>
+    <li>
+      <strong>Wireframes and ERD:</strong>
+      <a href="https://moqups.com/" target="_blank" rel="noreferrer noopener"
+        >Moqups</a
+      >
+    </li>
+  </ul>
 </div>
 {% endblock %}
