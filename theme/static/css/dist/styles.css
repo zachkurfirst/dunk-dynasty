@@ -1470,10 +1470,6 @@ form > p > input {
     max-width: 13rem;
   }
 
-  .md\:gap-6 {
-    gap: 1.5rem;
-  }
-
   .lg\:max-w-screen-md {
     max-width: 768px;
   }
