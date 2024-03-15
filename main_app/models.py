@@ -35,7 +35,7 @@ class Player(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     position = models.CharField(max_length=3, null=True)
-    height = models.IntegerField(null=True)
+    height = models.CharField(null=True)
     # height_inches = models.IntegerField(null=True)
     weight = models.IntegerField(null=True)
     franchise = models.ForeignKey(Franchise, on_delete=models.CASCADE)

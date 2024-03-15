@@ -167,13 +167,12 @@ def add_player(request, franchise_id):
         response = requests.get(f"{endpoint}{player_id}", headers=headers)
         result = response.json()
         new_player = Player(
-            id=result['id'],
-            first_name=result['first_name'],
-            last_name=result['last_name'],
-            position=result['position'],
-            height=result['height'],
-            # height_inches=result['height_inches'],
-            weight=result['weight'],
+            id=result['data']['id'],
+            first_name=result['data']['first_name'],
+            last_name=result['data']['last_name'],
+            position=result['data']['position'],
+            height=result['data']['height'],
+            weight=result['data']['weight'],
             franchise_id=franchise_id
         )
         if Player.objects.filter(id=player_id).exists():
