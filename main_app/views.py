@@ -141,8 +141,10 @@ def get_players(request, franchise_id):
         form = SearchForm(request.POST)
         if form.is_valid():
             query = form.cleaned_data['first_name']
-            endpoint = 'https://www.balldontlie.io/api/v1/players?per_page=20'
-            response = requests.get(endpoint, params={'search': query})
+            endpoint = 'https://api.balldontlie.io/v1/players?per_page=10'
+            token = os.environ.get('API_TOKEN_BDL')
+            headers = {'Authorization': f"{token}"}
+            response = requests.get(endpoint, headers=headers, params={'search': query})
             results = response.json()
     else:
         form = SearchForm()
@@ -159,17 +161,19 @@ def get_players(request, franchise_id):
 def add_player(request, franchise_id):
     if request.method == 'POST':
         player_id = request.POST.get('player-id')
-        endpoint = 'https://www.balldontlie.io/api/v1/players/'
-        response = requests.get(f"{endpoint}{player_id}")
+        endpoint = 'https://api.balldontlie.io/v1/players/'
+        token = os.environ.get('API_TOKEN_BDL')
+        headers = {'Authorization': f"{token}"}
+        response = requests.get(f"{endpoint}{player_id}", headers=headers)
         result = response.json()
         new_player = Player(
             id=result['id'],
             first_name=result['first_name'],
             last_name=result['last_name'],
             position=result['position'],
-            height_feet=result['height_feet'],
-            height_inches=result['height_inches'],
-            weight_pounds=result['weight_pounds'],
+            height=result['height'],
+            # height_inches=result['height_inches'],
+            weight=result['weight'],
             franchise_id=franchise_id
         )
         if Player.objects.filter(id=player_id).exists():
