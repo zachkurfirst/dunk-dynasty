@@ -46,7 +46,7 @@
           <tr>
             <th class="py-3 pl-6 pr-14">Full Name</th>
             <th class="py-3 pr-6">Position</th>
-            <th class="hidden sm:table-cell py-3 pr-6">Height</th>
+            <!-- <th class="hidden sm:table-cell py-3 pr-6">Height</th> -->
             <th class="hidden md:table-cell py-3 pr-6">Weight</th>
             {% if franchise.user == user %}
             <th class="py-3 pr-4">Action</th>
@@ -59,7 +59,7 @@
             <td class="py-3 pl-6 pr-14">{{ player.first_name }} {{ player.last_name }}</td>
             <td class="py-3 pr-6">
               {% if player.position %}{{ player.position }}{% else %}N/A{% endif %}</td>
-            <td class="hidden sm:table-cell py-3 pr-6">{% if player.height%}{{ player.height }}{% else %}N/A{% endif %}</td>
+            <!-- <td class="hidden sm:table-cell py-3 pr-6">{% if player.height %}{{ player.height }}{% else %}N/A{% endif %}</td> -->
             <td class="hidden md:table-cell py-3 pr-6">{% if player.weight %}{{ player.weight }}{% else %}N/A{% endif %}</td>
             {% if franchise.user == user %}
             <td class="py-3 pr-4">
