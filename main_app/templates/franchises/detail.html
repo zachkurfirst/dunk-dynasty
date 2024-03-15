@@ -1,92 +1,127 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<section id="header" class="flex flex-col md:flex-row flex-wrap justify-center md:gap-6 mb-12">
-    <div class="w-full md:w-2/5" id="photo">
-      {% for photo in franchise.photo_set.all %}
-        {% if forloop.last %}
-        <img class="aspect-3/2 rounded mb-4" src="{{ photo.url }}" alt="Photo for {{ franchise.city }} {{ franchise.name }}">
-        {% endif %}
-      {% empty %}
-        <img class="aspect-3/2 rounded mb-4" src="../../static/Assets/franchise-photo-placeholder.jpg" alt="Placeholder image">
-        {% endfor %}
-        {% if franchise.user == user %}
-        <form action="{% url 'add_photo' franchise.id %}" enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
-            <input type="file" name="photo-file" class="mb-2">
-            <button type="submit" class="btn btn-green mb-6">Upload Photo</button>
-        </form>
-        {% endif %}
-    </div>
-    <div class="sm:mt-4" id="franchise-info">
-        <h1 class="text-4xl font-bold">{{ franchise.city }} {{ franchise.name }}</h1>
-        <h2 class="mb-2">Owner: {{ franchise.user }}</h2>
-        <h3 class="mb-2">Established: {{ franchise.established|date:'N Y' }}</h3>
-        <p class="mb-10">{{ franchise.motto }}</p>
-        {% if franchise.user == user %}
-        <div id="edit-delete-buttons">
-            <a href="{% url 'franchises_update' franchise.id %}" class="btn-lg btn-orange mr-2">Edit Franchise</a>
-            <a href="{% url 'franchises_delete' franchise.id %}" class="btn-lg btn-red-outline">Delete Franchise</a>
-        </div>
-        {% endif %}
-    </div>
-</section>
-<hr class="my-8">
-<div id="roster">
-  <div class="mb-4">
-      <h2 class="text-3xl">Roster</h2>
-      {% if franchise.user == user %}
-      <h3 class="text-xl">{{ franchise.player_set.all|length }} / 12 players</h3>
-      {% endif %}
-    </div>
-    {% if franchise.player_set.all|length%}
-    <!-- ROSTER HAS PLAYERS -->
-    <table class="w-full text-left rtl:text-right mb-8 overflow-x-auto">
-        <thead class="uppercase bg-slate-200">
-          <tr>
-            <th class="py-3 pl-6 pr-14">Full Name</th>
-            <th class="py-3 pr-6">Position</th>
-            <!-- <th class="hidden sm:table-cell py-3 pr-6">Height</th> -->
-            <th class="hidden md:table-cell py-3 pr-6">Weight</th>
-            {% if franchise.user == user %}
-            <th class="py-3 pr-4">Action</th>
-            {% endif %}
-          </tr>
-        </thead>
-        <tbody class="bg-slate-50">
-        {% for player in franchise.player_set.all %}
-          <tr class="border-b">
-            <td class="py-3 pl-6 pr-14">{{ player.first_name }} {{ player.last_name }}</td>
-            <td class="py-3 pr-6">
-              {% if player.position %}{{ player.position }}{% else %}N/A{% endif %}</td>
-            <!-- <td class="hidden sm:table-cell py-3 pr-6">{% if player.height %}{{ player.height }}{% else %}N/A{% endif %}</td> -->
-            <td class="hidden md:table-cell py-3 pr-6">{% if player.weight %}{{ player.weight }}{% else %}N/A{% endif %}</td>
-            {% if franchise.user == user %}
-            <td class="py-3 pr-4">
-              <form action="{% url 'add_player' franchise.id %}" method="POST">
-                {% csrf_token %}
-                <a href="{% url 'player_cut' franchise.id player.id %}" class="btn btn-red">Cut</a>
-              </form>
-            </td>
-            {% endif %}
-          </tr>
-          {% endfor %}
-        </tbody>
-    </table>
-        {% if franchise.user == user %}
-        <!-- LOGGED IN USER IS FRANCHISE USER -->
-        <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange">Add Players</a>
-        {% endif %}
-    {% else %}
-    <!-- ROSTER HAS NO PLAYERS -->
-        {% if franchise.user == user %}
-        <!-- LOGGED IN USER IS FRANCHISE USER -->
-        <p class="mb-8 text-white">You can't build a dynasty without players! Start building your roster.</p>
-        <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange">Build Roster</a>
-        {% else %}
-        <p>This roster has no players yet. Check back soon!</p>
-        {% endif %}
+{% extends 'base.html' %} {% block content %}
+<section
+  id="header"
+  class="flex flex-col md:flex-row flex-wrap justify-center md:gap-6 mb-12"
+>
+  <div class="w-full md:w-2/5" id="photo">
+    {% for photo in franchise.photo_set.all %} {% if forloop.last %}
+    <img
+      class="aspect-3/2 rounded mb-4"
+      src="{{ photo.url }}"
+      alt="Photo for {{ franchise.city }} {{ franchise.name }}"
+    />
+    {% endif %} {% empty %}
+    <img
+      class="aspect-3/2 rounded mb-4"
+      src="../../static/Assets/franchise-photo-placeholder.jpg"
+      alt="Placeholder image"
+    />
+    {% endfor %} {% if franchise.user == user %}
+    <form
+      action="{% url 'add_photo' franchise.id %}"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      {% csrf_token %}
+      <input type="file" name="photo-file" class="mb-2" />
+      <button type="submit" class="btn btn-green mb-6">Upload Photo</button>
+    </form>
     {% endif %}
+  </div>
+  <div class="sm:mt-4" id="franchise-info">
+    <h1 class="text-4xl font-bold">
+      {{ franchise.city }} {{ franchise.name }}
+    </h1>
+    <h2 class="mb-2">Owner: {{ franchise.user }}</h2>
+    <h3 class="mb-2">Established: {{ franchise.established|date:'N Y' }}</h3>
+    <p class="mb-10">{{ franchise.motto }}</p>
+    {% if franchise.user == user %}
+    <div id="edit-delete-buttons">
+      <a
+        href="{% url 'franchises_update' franchise.id %}"
+        class="btn-lg btn-orange mr-2"
+        >Edit Franchise</a
+      >
+      <a
+        href="{% url 'franchises_delete' franchise.id %}"
+        class="btn-lg btn-red-outline"
+        >Delete Franchise</a
+      >
+    </div>
+    {% endif %}
+  </div>
+</section>
+<hr class="my-8" />
+<section id="roster">
+  <div class="mb-4">
+    <h2 class="text-3xl">Roster</h2>
+    {% if franchise.user == user %}
+    <h3 class="text-xl">{{ franchise.player_set.all|length }} / 12 players</h3>
+    {% endif %}
+  </div>
+  {% if franchise.player_set.all|length %}
+  <!-- ROSTER HAS PLAYERS -->
+  <table class="w-full text-left rtl:text-right mb-8 overflow-x-auto">
+    <thead class="uppercase bg-slate-200">
+      <tr>
+        <th class="py-3 pl-6 pr-14">Full Name</th>
+        <th class="py-3 pr-6">Position</th>
+        <th class="hidden sm:table-cell py-3 pr-6">Height</th>
+        <th class="hidden md:table-cell py-3 pr-6">Weight</th>
+        {% if franchise.user == user %}
+        <th class="py-3 pr-4">Action</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody class="bg-slate-50">
+      {% for player in franchise.player_set.all %}
+      <tr class="border-b">
+        <td class="py-3 pl-6 pr-14">
+          {{ player.first_name }} {{ player.last_name }}
+        </td>
+        <td class="py-3 pr-6">
+          {% if player.position %}{{ player.position }}{% else %}N/A{% endif %}
+        </td>
+        <td class="hidden sm:table-cell py-3 pr-6">
+          {% if player.height %}{{ player.height }}{% else %}N/A{% endif %}
+        </td>
+        <td class="hidden md:table-cell py-3 pr-6">
+          {% if player.weight %}{{ player.weight }}{% else %}N/A{% endif %}
+        </td>
+        {% if franchise.user == user %}
+        <td class="py-3 pr-4">
+          <form action="{% url 'add_player' franchise.id %}" method="POST">
+            {% csrf_token %}
+            <a
+              href="{% url 'player_cut' franchise.id player.id %}"
+              class="btn btn-red"
+              >Cut</a
+            >
+          </form>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if franchise.user == user %}
+  <!-- LOGGED IN USER IS FRANCHISE USER -->
+  <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange"
+    >Add Players</a
+  >
+  {% endif %} {% else %}
+  <!-- ROSTER HAS NO PLAYERS -->
+  {% if franchise.user == user %}
+  <!-- LOGGED IN USER IS FRANCHISE USER -->
+  <p class="mb-8 text-white">
+    You can't build a dynasty without players! Start building your roster.
+  </p>
+  <a href="{% url 'players_search' franchise.id %}" class="btn-lg btn-orange"
+    >Build Roster</a
+  >
+  {% else %}
+  <p>This roster has no players yet. Check back soon!</p>
+  {% endif %} {% endif %}
 </section>
 
 {% endblock %}
